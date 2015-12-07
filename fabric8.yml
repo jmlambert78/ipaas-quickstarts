@@ -1,0 +1,14 @@
+---
+pipeline: "workflows/maven/CanaryReleaseStageAndApprovePromote.groovy"
+buildName: "webmvc"
+codeReview: false
+links:
+  Job: "http://jenkins.188.166.15.35.xip.io/job/webmvc"
+  Production: "http://fabric8.188.166.15.35.xip.io/kubernetes/pods?namespace=webmvc-prod"
+  Staging: "http://fabric8.188.166.15.35.xip.io/kubernetes/pods?namespace=webmvc-staging"
+  Testing: "http://fabric8.188.166.15.35.xip.io/kubernetes/pods?namespace=webmvc-testing"
+environments:
+  Testing: "webmvc-testing"
+  Staging: "webmvc-staging"
+  Production: "webmvc-prod"
+useLocalFlow: true

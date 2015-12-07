@@ -1,45 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-     Copyright 2005-2015 Red Hat, Inc.
-
-     Red Hat licenses this file to you under the Apache License, version
-     2.0 (the "License"); you may not use this file except in compliance
-     with the License.  You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-     implied.  See the License for the specific language governing
-     permissions and limitations under the License.
-
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>9</version>
   </parent>
-
   <groupId>io.fabric8.quickstarts</groupId>
   <artifactId>ipaas-quickstarts</artifactId>
   <version>2.2.73-SNAPSHOT</version>
   <packaging>pom</packaging>
-
   <name>Fabric8 Quickstarts</name>
   <description>Quickstart applications for working with Fabric8</description>
-
   <url>http://fabric8.io/v2/quickstarts.html</url>
   <inceptionYear>2014</inceptionYear>
-
   <organization>
     <name>Red Hat</name>
     <url>http://redhat.com</url>
   </organization>
-
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -47,8 +26,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <!-- including A developer as it's required by the maven poms going into central -->
   <developers>
     <developer>
       <id>geeks</id>
@@ -57,40 +34,12 @@
       <organizationUrl>http://fabric8.io/</organizationUrl>
     </developer>
   </developers>
-
   <scm>
     <connection>scm:git:git@github.com:fabric8io/quickstarts.git</connection>
     <developerConnection>scm:git:git@github.com:fabric8io/quickstarts.git</developerConnection>
-    <url>http://github.com/fabric8io/quickstarts</url>
     <tag>quickstarts-2.0.1</tag>
+    <url>http://github.com/fabric8io/quickstarts</url>
   </scm>
-
-  <properties>
-    <skipTests>false</skipTests>
-    <skipItests>true</skipItests>
-    <integrationTestPattern>**/*KT*.java</integrationTestPattern>
-
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
-
-    <docker.source.dir>${basedir}/src/main/docker</docker.source.dir>
-
-    <arquillian.version>1.1.10.Final</arquillian.version>
-    <docker.maven.plugin.version>0.13.6</docker.maven.plugin.version>
-    <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
-    <!--
-            <docker.registry>registry.hub.docker.com</docker.registry>
-    -->
-    <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
-    <maven.surefire.plugin.version>2.17</maven.surefire.plugin.version>
-    <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-    <junit.version>4.12</junit.version>
-    <fabric8.version>2.2.72</fabric8.version>
-    <fabric8.release.version>${fabric8.version}</fabric8.release.version>
-    <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
-  </properties>
-
   <distributionManagement>
     <repository>
       <id>oss-sonatype-staging</id>
@@ -103,55 +52,116 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
+  <properties>
+    <arquillian.version>1.1.10.Final</arquillian.version>
+    <docker.assemblyDescriptorRef>artifact-with-dependencies</docker.assemblyDescriptorRef>
+    <docker.from>docker.io/centos</docker.from>
+    <docker.image>fabric8/${project.artifactId}:${project.version}</docker.image>
+    <docker.maven.plugin.version>0.13.6</docker.maven.plugin.version>
+    <docker.port.container.jolokia>8778</docker.port.container.jolokia>
+    <docker.source.dir>${basedir}/src/main/docker</docker.source.dir>
+    <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
+    <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
+    <fabric8.iconRef>icons/java</fabric8.iconRef>
+    <fabric8.label.container>jml</fabric8.label.container>
+    <fabric8.label.project>webmvc</fabric8.label.project>
+    <fabric8.label.version>${project.version}</fabric8.label.version>
+    <fabric8.release.version>${fabric8.version}</fabric8.release.version>
+    <fabric8.version>2.2.72</fabric8.version>
+    <integrationTestPattern>**/*KT*.java</integrationTestPattern>
+    <junit.version>4.12</junit.version>
+    <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
+    <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
+    <maven.surefire.plugin.version>2.17</maven.surefire.plugin.version>
+    <skipItests>true</skipItests>
+    <skipTests>false</skipTests>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-cdi</artifactId>
+        <version>${fabric8.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-cdi</artifactId>
+        <version>${fabric8.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.junit</groupId>
+        <artifactId>arquillian-junit-container</artifactId>
+        <version>${arquillian.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-arquillian</artifactId>
+        <version>${fabric8.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.fabric8</groupId>
+        <artifactId>kubernetes-assertions</artifactId>
+        <version>${fabric8.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <repositories>
     <repository>
-      <id>oss-sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <name>OSS Sonatype Nexus Snapshots</name>
       <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <id>oss-sonatype-snapshots</id>
+      <name>OSS Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
-      <id>oss-sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <name>OSS Sonatype Nexus Snapshots</name>
       <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <id>oss-sonatype-snapshots</id>
+      <name>OSS Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </pluginRepository>
   </pluginRepositories>
-
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>1.5</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${maven.javadoc.plugin.version}</version>
           <configuration>
-              <additionalparam>${javadoc.opts}</additionalparam>
+            <additionalparam>${javadoc.opts}</additionalparam>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven-resources-plugin.version}</version>
         <configuration>
@@ -163,7 +173,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5</version>
         <configuration>
@@ -171,23 +180,15 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.17</version>
-        <inherited>true</inherited>
-        <configuration>
-          <skipTests>${skipTests}</skipTests>
-          <excludes>
-            <exclude>${integrationTestPattern}</exclude>
-          </excludes>
-        </configuration>
         <executions>
           <execution>
             <id>int-test</id>
+            <phase>integration-test</phase>
             <goals>
               <goal>test</goal>
             </goals>
-            <phase>integration-test</phase>
             <configuration>
               <skipTests>${skipItests}</skipTests>
               <excludes>
@@ -199,56 +200,56 @@
             </configuration>
           </execution>
         </executions>
+        <inherited>true</inherited>
+        <configuration>
+          <skipTests>${skipTests}</skipTests>
+          <excludes>
+            <exclude>${integrationTestPattern}</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jolokia</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.13.6</version>
+        <configuration>
+          <images>
+            <image>
+              <build>
+                <env></env>
+                <from>${docker.from}</from>
+                <assembly>
+                  <descriptorRef>${docker.assemblyDescriptorRef}</descriptorRef>
+                </assembly>
+              </build>
+              <name>${docker.image}</name>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-maven-plugin</artifactId>
+        <version>2.2.72</version>
+        <executions>
+          <execution>
+            <id>json</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>json</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>attach</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
-
-  <dependencyManagement>
-    <dependencies>
-
-      <dependency>
-        <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-cdi</artifactId>
-        <version>${fabric8.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-cdi</artifactId>
-        <version>${fabric8.version}</version>
-        <type>test-jar</type>
-      </dependency>
-
-      <dependency>
-        <groupId>org.jboss.arquillian.junit</groupId>
-        <artifactId>arquillian-junit-container</artifactId>
-        <version>${arquillian.version}</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-arquillian</artifactId>
-        <version>${fabric8.version}</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>io.fabric8</groupId>
-        <artifactId>kubernetes-assertions</artifactId>
-        <version>${fabric8.version}</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <profiles>
     <profile>
       <id>fabric8-snapshot</id>
@@ -257,18 +258,11 @@
         <fabric8.release.version>2.2.40</fabric8.release.version>
       </properties>
     </profile>
-
     <profile>
       <id>release</id>
-      <modules>
-        <module>archetypes-catalog</module>
-        <module>archetypes</module>
-        <module>archetype-itests</module>
-      </modules>
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
               <execution>
@@ -281,7 +275,6 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
             <version>${maven.enforcer.plugin.version}</version>
             <executions>
@@ -302,7 +295,6 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <executions>
               <execution>
@@ -317,7 +309,6 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <version>2.4</version>
             <executions>
@@ -331,6 +322,11 @@
           </plugin>
         </plugins>
       </build>
+      <modules>
+        <module>archetypes-catalog</module>
+        <module>archetypes</module>
+        <module>archetype-itests</module>
+      </modules>
     </profile>
     <profile>
       <id>license</id>
@@ -340,6 +336,13 @@
             <groupId>com.mycila</groupId>
             <artifactId>license-maven-plugin</artifactId>
             <version>2.6</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
             <configuration>
               <includes>
                 <include>src/main/java/**</include>
@@ -350,20 +353,11 @@
                 <include>**/*.properties</include>
               </includes>
               <excludes>
-                <!-- exclude sampel data -->
                 <exclude>**/src/data/**</exclude>
                 <exclude>**/resources/data/**</exclude>
-                <!-- exclude hidden dir -->
                 <exclude>**/.*/**</exclude>
               </excludes>
             </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
@@ -374,7 +368,6 @@
         <skipItests>false</skipItests>
       </properties>
     </profile>
-
     <profile>
       <id>quickstarts</id>
       <activation>
@@ -387,23 +380,39 @@
         <module>quickstart</module>
       </modules>
     </profile>
-
     <profile>
       <id>doclint-java8-disable</id>
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
       <properties>
-          <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
       </properties>
-      <!-- Commented as affectes the fabric8 release, means quickstarts are released when we only want the archetypes -->
-      <!-- <modules>
-        <module>archetypes-catalog</module>
-        <module>archetypes</module>
-        <module>archetype-itests</module>
-        <module>quickstart</module>
-      </modules> -->
+    </profile>
+    <profile>
+      <id>f8-build</id>
+      <build>
+        <defaultGoal>clean install docker:build fabric8:json</defaultGoal>
+      </build>
+    </profile>
+    <profile>
+      <id>f8-deploy</id>
+      <build>
+        <defaultGoal>clean install docker:build docker:push fabric8:json fabric8:apply</defaultGoal>
+      </build>
+      <properties>
+        <fabric8.recreate>true</fabric8.recreate>
+        <fabric8.imagePullPolicySnapshot>Always</fabric8.imagePullPolicySnapshot>
+      </properties>
+    </profile>
+    <profile>
+      <id>f8-local-deploy</id>
+      <build>
+        <defaultGoal>clean install docker:build fabric8:json fabric8:apply</defaultGoal>
+      </build>
+      <properties>
+        <fabric8.recreate>true</fabric8.recreate>
+      </properties>
     </profile>
   </profiles>
-
 </project>
