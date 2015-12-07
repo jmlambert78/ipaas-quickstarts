@@ -55,7 +55,7 @@
   <properties>
     <arquillian.version>1.1.10.Final</arquillian.version>
     <docker.assemblyDescriptorRef>artifact-with-dependencies</docker.assemblyDescriptorRef>
-    <docker.from>docker.io/centos</docker.from>
+    <docker.from>docker.io/wildfly</docker.from>
     <docker.image>fabric8/${project.artifactId}:${project.version}</docker.image>
     <docker.maven.plugin.version>0.13.6</docker.maven.plugin.version>
     <docker.port.container.jolokia>8778</docker.port.container.jolokia>
@@ -63,7 +63,7 @@
     <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
     <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
     <fabric8.iconRef>icons/java</fabric8.iconRef>
-    <fabric8.label.container>jml</fabric8.label.container>
+    <fabric8.label.container>wildfly</fabric8.label.container>
     <fabric8.label.project>webmvc</fabric8.label.project>
     <fabric8.label.version>${project.version}</fabric8.label.version>
     <fabric8.release.version>${fabric8.version}</fabric8.release.version>

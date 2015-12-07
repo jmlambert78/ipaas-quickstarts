@@ -1,5 +1,6 @@
 ---
 pipeline: "workflows/maven/CanaryReleaseStageAndApprovePromote.groovy"
+chatRoom: "coucouaussi"
 buildName: "webmvc"
 codeReview: false
 links:
